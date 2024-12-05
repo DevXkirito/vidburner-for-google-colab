@@ -41,13 +41,16 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 async def handle_video(update: Update, context: ContextTypes.DEFAULT_TYPE):
     try:
-        if "video_file_id" in context.user_data:
+        if "video_path" in context.user_data:
             await update.message.reply_text("Video already uploaded. Now send the subtitle file.")
             return
 
-        if update.message.document:
-            # Store file ID
-            context.user_data["video_file_id"] = update.message.document.file_id
+        if update.message.document and update.message.document.file_name.endswith(".mp4"):
+            file = await context.bot.get_file(update.message.document.file_id)
+            video_path = os.path.join(WORK_DIR, "input_video.mp4")
+            await file.download_to_drive(video_path)
+
+            context.user_data["video_path"] = video_path
             await update.message.reply_text("Video uploaded! Now send the subtitle file (.srt).")
         else:
             await update.message.reply_text("Please send a valid .mp4 video file.")
