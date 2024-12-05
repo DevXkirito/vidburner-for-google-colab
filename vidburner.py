@@ -130,7 +130,7 @@ def main():
 
     # Handlers
     app.add_handler(CommandHandler("start", start))
-    app.add_handler(MessageHandler(filters.VIDEO, handle_video))
+    app.add_handler(MessageHandler(filters.Document.FileExtension("mp4"), handle_video))
     app.add_handler(MessageHandler(filters.Document.FileExtension("srt"), handle_subtitles))
 
     # Start the bot
