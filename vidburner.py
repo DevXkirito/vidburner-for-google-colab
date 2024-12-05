@@ -45,9 +45,9 @@ async def handle_video(update: Update, context: ContextTypes.DEFAULT_TYPE):
             await update.message.reply_text("Video already uploaded. Now send the subtitle file.")
             return
 
-        if update.message.video:
+        if update.message.document:
             # Store file ID
-            context.user_data["video_file_id"] = update.message.video.file_id
+            context.user_data["video_file_id"] = update.message.document.file_id
             await update.message.reply_text("Video uploaded! Now send the subtitle file (.srt).")
         else:
             await update.message.reply_text("Please send a valid .mp4 video file.")
