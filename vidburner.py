@@ -22,7 +22,8 @@ logger = logging.getLogger(__name__)
 def setup_google_drive():
     logger.info("Setting up Google Drive authentication...")
     gauth = GoogleAuth()
-    gauth.LocalWebserverAuth()  # Opens browser for authentication
+    gauth.LoadClientConfigFile("credentials.json")  # Load the uploaded file
+    gauth.CommandLineAuth()  # Use command-line authentication for Colab
     return GoogleDrive(gauth)
 
 # Upload File to Google Drive
