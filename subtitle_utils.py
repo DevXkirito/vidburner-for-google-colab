@@ -25,12 +25,22 @@ def find_font_name(font_path):
 
 def burn_subtitles_with_font_and_size(input_video, subtitle_file, output_video, font_path, font_size, alignment, margin_vertical):
     font_name = find_font_name(font_path)
+    
+    # --- START OF FIX ---
+    # Escape the colon in the subtitle path for the ffmpeg filter
+    escaped_subtitle_file = subtitle_file.replace(':', '\\:')
+    # --- END OF FIX ---
+
     (
         ffmpeg_lib
         .input(input_video)
         .output(
-            output_video, 
-            vf=f"subtitles={subtitle_file}:force_style='FontName={font_name},FontSize={font_size},Alignment={alignment},MarginV={margin_vertical}'"
+            output_video,
+            # Use the new escaped path variable here
+            vf=f"subtitles={escaped_subtitle_file}:force_style='FontName={font_name},FontSize={font_size},Alignment={alignment},MarginV={margin_vertical}'",
+            # Add the audio codec to copy the original audio track
+            acodec='copy'
         )
         .run(overwrite_output=True)
     )
+
