@@ -146,7 +146,7 @@ async def process_video(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 # Main
 def main():
-    TOKEN = "7418323436:AAFHmUzK4S6mg6Eq038hhGm1KifJnw6TMwE"  # Replace with your bot's token
+    TOKEN = "5369686193:AAFOsEHdKOmMQ0V5YaropYvkyZXhTpvtvj8"  # Replace with your bot's token
     app = Application.builder().token(TOKEN).build()
 
     # Handlers
@@ -159,3 +159,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
